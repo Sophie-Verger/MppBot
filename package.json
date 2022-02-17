@@ -1,6 +1,6 @@
 {
   "name": "mppbot",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "an app for our bot",
   "main": "app.js",
   "scripts": {
