@@ -1,0 +1,19 @@
+{
+  "name": "mppbot",
+  "version": "0.0.1",
+  "description": "an app for our bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sophie-Verger/MppBot.git"
+  },
+  "author": "Ophelie Leleu, Amandine Quantin, Sophie Verger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sophie-Verger/MppBot/issues"
+  },
+  "homepage": "https://github.com/Sophie-Verger/MppBot#readme"
+}
