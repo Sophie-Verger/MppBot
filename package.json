@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "watch": "nodemon app.js"
+    "start": "node src/slack.js",
+    "watch": "nodemon src/slack.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,8 @@
   "homepage": "https://github.com/Sophie-Verger/MppBot#readme",
   "dependencies": {
     "@slack/bolt": "^3.10.0",
+    "node-cron": "^3.0.0",
+    "node-schedule": "^2.1.0",
     "nodemon": "^2.0.16"
   }
 }
