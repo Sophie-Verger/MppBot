@@ -107,7 +107,7 @@ app.message('daily', async ({ message, say }) => {
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": `Bonjour <@${message.user}> ! Prête à commencer le daily ?`
+					"text": `Bonjour <@${message.user}> ! Prêt(e) à commencer le daily ?`
 				},
 			},
 			{
@@ -236,7 +236,7 @@ app.action('yes_btn', async ({ ack, say }) => {
 // send answer if user want to answer the daily later
 app.action('later_btn', async ({ ack, say }) => {
 	await ack();
-	await say(`D'accord, dis moi quand tu est prêt(e).`);
+	await say(`D'accord, dis moi quand tu es prêt(e).`);
 });
 
 // send massage with all user answers, to the private channel and to the test-mppbot channel
