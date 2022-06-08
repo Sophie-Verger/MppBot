@@ -30,13 +30,24 @@ const dailyWizard = new Scenes.WizardScene(
     },
 
     (ctx) => {
+        
         ctx.wizard.state.daily.annoyances = ctx.message.text;
-        console.log(ctx.wizard.state);
-        ctx.reply("merci pour tes réponses !");
-        ctx.reply("Tu as indiqué avoir fait hier : " + ctx.wizard.state.daily.yesterday);
-        ctx.reply("Voici ce que tu as indiqué vouloir faire " + ctx.wizard.state.daily.today);
-        ctx.reply("Ce qui t'empêche d'avancer est :" + ctx.wizard.state.daily.annoyances);
-        // renvoyer les infos quelque part en extérieur. Un autre canal, un mail, etc.
+        
+        // ctx.reply("Merci pour tes réponses !");
+        ctx.reply(`Merci pour les réponses ! 
+Tu as indiqué avoir fait ceci hier :  ${ctx.wizard.state.daily.yesterday}`);
+        ctx.reply(`Voici ce que tu as indiqué vouloir faire : ${ctx.wizard.state.daily.today}`);
+        ctx.reply(`Ce qui t'empêche d'avancer est : ${ctx.wizard.state.daily.annoyances}`);
+        console.log(`Voici les réponses de ${ctx.message.from.first_name} ${ctx.message.from.last_name} :`);
+        console.log(`Ce que la personne a fait hier : ${ctx.wizard.state.daily.yesterday}`);
+        console.log(`Ce que la personne a prévu de faire aujourd'hui : ${ctx.wizard.state.daily.today}`);
+        console.log(`Ce qui l'empêche d'avancer : ${ctx.wizard.state.daily.annoyances}`);
+        // console.log(ctx.wizard.state.daily); // objectif : renvoyer les infos quelque part en extérieur. Un autre canal, un mail, etc.
+        
+        
+
+
+        
         return ctx.scene.leave();
     },
 );
@@ -59,6 +70,8 @@ bot.hears('test', (ctx) => {
     ctx.reply("C'est ok pour moi");
 })
 
+
+// commande de vérification
 bot.command('chat', (ctx) => {
     let convId = ctx.message.from.id; // est l'ID de la personne, du chat sinon
     let callerId = ctx.message.chat.id; // les carac' du messages, liées à la personne l'ayant émis
