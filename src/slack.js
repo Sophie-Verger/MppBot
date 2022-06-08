@@ -1,9 +1,10 @@
+require('dotenv').config();
 const { App } = require("@slack/bolt");
 const schedule = require('node-schedule');
-//const cron = require('node-cron');
-const SLACK_TOKEN = 'xoxb-3103946280277-3118854315429-qsxpYUBZayB6tFB3oOux6PVh';
-const SLACK_SIGNING_SECRET = '67b4ddf8367c8b70e40b67c820742c01';
-const SLACK_APP_TOKEN = 'xapp-1-A0349BKP2P2-3152560283590-d3896c71ee2cc1af646acedb9867df75d70e8b2f522303c1787feadd5f1ee495';
+
+const SLACK_TOKEN = process.env.SLACK_TOKEN;
+const SLACK_SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET;
+const SLACK_APP_TOKEN = process.env.SLACK_APP_TOKEN;
 
 // Initializes your app with your bot token and signing secret
 const app = new App({
@@ -17,12 +18,11 @@ const app = new App({
 	const port = 3000
 	// Start your app
 	await app.start(port);
-	console.log(`⚡️ Slack Bolt app is running on port ${port}!`);
 })();
 
 
 // schedular. Send daily every day from monday to sunday at 9.00
-const job = schedule.scheduleJob('00 09 * * 1-5', function () {
+const job = schedule.scheduleJob('02 13 * * 1-5', function () {
 	scheduleSlack()
 })
 
@@ -33,7 +33,7 @@ function scheduleSlack() {
 		types: 'im'
 	}).then((res) => {
 		let conv = Object.entries(res.channels)
-	
+
 		for (let i = 0; i < conv.length; i++) {
 			conv[i].forEach(element => {
 				if (typeof (element) == 'object' && element.user !== 'USLACKBOT') {
@@ -41,7 +41,7 @@ function scheduleSlack() {
 					app.client.users.info({
 						token: SLACK_TOKEN,
 						user: element.user,
-					}).then((user) =>  {
+					}).then((user) => {
 						let username = user.user.profile.first_name;
 						publishMessage(username, channelId)
 					})
@@ -57,14 +57,14 @@ async function publishMessage(username, channelId) {
 		// Call the chat.postMessage method using the built-in WebClient
 		const result = await app.client.chat.postMessage({
 			// The token you used to initialize your app
-			token: "xoxb-3103946280277-3118854315429-qsxpYUBZayB6tFB3oOux6PVh",
+			token: SLACK_TOKEN,
 			channel: channelId,
 			blocks: [
 				{
 					"type": "section",
 					"text": {
 						"type": "mrkdwn",
-						"text": `Bonjour ` + username + ` ! Prêt(e) à commencer le daily ?`
+						"text": `Bonjour @` + username + ` ! Prêt(e) à commencer le daily ?`
 					},
 				},
 				{
@@ -99,15 +99,15 @@ async function publishMessage(username, channelId) {
 	}
 }
 
-// Listens to incoming messages that contain "\daily" and send daily introduction
-app.message('\daily', async ({ message, say }) => {
+// Listens to incoming messages that contain "daily" and send daily introduction
+app.message('daily', async ({ message, say }) => {
 	await say({
 		blocks: [
 			{
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": `Bonjour <@${message.user}>! Prête à commencer le daily ?`
+					"text": `Bonjour <@${message.user}> ! Prête à commencer le daily ?`
 				},
 			},
 			{
@@ -140,7 +140,7 @@ app.message('\daily', async ({ message, say }) => {
 });
 
 // send the daily questions if the user said he is ready
-app.action('yes_btn', async ({ack, say }) => {
+app.action('yes_btn', async ({ ack, say }) => {
 	await ack();
 	await say({
 		blocks: [
@@ -234,9 +234,9 @@ app.action('yes_btn', async ({ack, say }) => {
 });
 
 // send answer if user want to answer the daily later
-app.action('later_btn', async ({ack, say }) => {
+app.action('later_btn', async ({ ack, say }) => {
 	await ack();
-	await say(`D'accord, dis moi quand tu est prêt(e). Pour cela, ecrit \daily dans ce channel`);
+	await say(`D'accord, dis moi quand tu est prêt(e).`);
 });
 
 // send massage with all user answers, to the private channel and to the test-mppbot channel
@@ -260,15 +260,15 @@ app.action('daily_submit', async ({ body, ack, say }) => {
 
 	await say(`Merci pour tes réponses.\n \n Hier tu as : ` + yesterday + `\n Aujourd'hui tu vas : ` + today + `\n Irritants rencontrés : ` + problems + `\n \n A Demain ! Passe une bonne journée !`);
 
-	sendResponseToMppBotChannel(body.user.id, yesterday, today, problems)	
+	sendResponseToMppBotChannel(body.user.id, yesterday, today, problems)
 });
 
 // function that search user by the given id then send message with answers to test-mppbot channel
-  function sendResponseToMppBotChannel(userId, yesterday, today, problems) {
+function sendResponseToMppBotChannel(userId, yesterday, today, problems) {
 	app.client.users.info({
 		token: SLACK_TOKEN,
 		user: userId,
-	}).then((user) =>  {
+	}).then((user) => {
 		app.client.chat.postMessage({
 			token: SLACK_TOKEN,
 			channel: 'C034QUB5B7G',
@@ -283,4 +283,4 @@ app.action('daily_submit', async ({ body, ack, say }) => {
 			]
 		});
 	})
-  }
+}
