@@ -64,7 +64,7 @@ async function publishMessage(username, channelId) {
 					"type": "section",
 					"text": {
 						"type": "mrkdwn",
-						"text": `Bonjour ` + username + ` ! Prêt(e) à commencer le daily ?`
+						"text": `Bonjour @` + username + ` ! Prêt(e) à commencer le daily ?`
 					},
 				},
 				{
@@ -107,7 +107,7 @@ app.message('daily', async ({ message, say }) => {
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": `Bonjour <@${message.user}>! Prête à commencer le daily ?`
+					"text": `Bonjour <@${message.user}> ! Prête à commencer le daily ?`
 				},
 			},
 			{
