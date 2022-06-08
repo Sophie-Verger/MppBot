@@ -1,19 +1,20 @@
 {
   "name": "mppbot",
   "version": "1.0.0",
-  "description": "an app for our bot",
-  "main": "app.js",
+  "description": "Un dailybot telegram",
+  "main": "src/telegram.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sophie-Verger/MppBot.git"
-  },
-  "author": "Ophelie Leleu, Amandine Quantin, Sophie Verger",
+  "author": "Amandine QUANTIN",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Sophie-Verger/MppBot/issues"
-  },
-  "homepage": "https://github.com/Sophie-Verger/MppBot#readme"
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "telegraf": "^4.8.3",
+    "telegraf-question": "^1.1.4"
+  }
 }
