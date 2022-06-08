@@ -7,11 +7,12 @@ const Stage = require('telegraf');
 
 // Création de la scène du daily
 
+
+
 const dailyWizard = new Scenes.WizardScene(
     'DAILY_ID', // first argument is Scene_ID, 
     (ctx) => {
         ctx.reply("Début du daily");
-
         ctx.reply("Qu'as-tu fais dans ton précédent jour de travail ?");
         ctx.wizard.state.daily = {};
         return ctx.wizard.next();
@@ -31,29 +32,32 @@ const dailyWizard = new Scenes.WizardScene(
     (ctx) => {
         ctx.wizard.state.daily.annoyances = ctx.message.text;
         console.log(ctx.wizard.state);
-        ctx.reply(ctx.wizard.state.daily);
-        // renvoyer les infos quelque part en extérieur. Un canal, ou 
+        ctx.reply("merci pour tes réponses !");
+        ctx.reply("Tu as indiqué avoir fait hier : " + ctx.wizard.state.daily.yesterday);
+        ctx.reply("Voici ce que tu as indiqué vouloir faire " + ctx.wizard.state.daily.today);
+        ctx.reply("Ce qui t'empêche d'avancer est :" + ctx.wizard.state.daily.annoyances);
+        // renvoyer les infos quelque part en extérieur. Un autre canal, un mail, etc.
         return ctx.scene.leave();
     },
-  );
+);
 
 const stage = new Scenes.Stage([dailyWizard]);
 
-///// initialisation du bot
 
+///// Initialisation du bot
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
+bot.use(session());
 bot.use(stage.middleware());
 
-/// commandes
+
+/// Ajout des commandes
 bot.command('daily', (ctx) => {
     ctx.scene.enter('DAILY_ID');
 });
 
-
 bot.hears('test', (ctx) => {
     ctx.reply("C'est ok pour moi");
 })
-
 
 bot.command('chat', (ctx) => {
     let convId = ctx.message.from.id; // est l'ID de la personne, du chat sinon
