@@ -4,8 +4,7 @@
   "description": "Un dailybot telegram",
   "main": "src/telegram.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-
+    "test": "node src/tests.js",
     "start": "node src/slack.js && node src/telegram.js",
     "slack": "node src/slack.js",
     "telegram": "node src/telegram.js",
