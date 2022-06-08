@@ -4,7 +4,10 @@ const Composer = require('telegraf');
 const WizardScene = require('telegraf');
 const Stage = require('telegraf');
 
+
 // Création de la scène du daily
+
+
 
 const dailyWizard = new Scenes.WizardScene(
     'DAILY_ID', // first argument is Scene_ID, 
@@ -29,7 +32,10 @@ const dailyWizard = new Scenes.WizardScene(
     (ctx) => {
         ctx.wizard.state.daily.annoyances = ctx.message.text;
         console.log(ctx.wizard.state);
-        ctx.reply(ctx.wizard.state.daily);
+        ctx.reply("merci pour tes réponses !");
+        ctx.reply("Tu as indiqué avoir fait hier : " + ctx.wizard.state.daily.yesterday);
+        ctx.reply("Voici ce que tu as indiqué vouloir faire " + ctx.wizard.state.daily.today);
+        ctx.reply("Ce qui t'empêche d'avancer est :" + ctx.wizard.state.daily.annoyances);
         // renvoyer les infos quelque part en extérieur. Un autre canal, un mail, etc.
         return ctx.scene.leave();
     },
