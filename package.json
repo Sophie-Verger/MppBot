@@ -1,16 +1,15 @@
 {
   "name": "mppbot",
   "version": "1.0.0",
-  "description": "an app for our bot",
-  "main": "app.js",
+  "description": "Un dailybot telegram",
+  "main": "src/telegram.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/slack.js",
+
+    "start": "node src/slack.js && node src/telegram.js",
+    "slack": "node src/slack.js",
+    "telegram": "node src/telegram.js",
     "watch": "nodemon src/slack.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sophie-Verger/MppBot.git"
   },
   "author": "Ophelie Leleu, Amandine Quantin, Sophie Verger",
   "license": "ISC",
@@ -23,5 +22,9 @@
     "node-cron": "^3.0.0",
     "node-schedule": "^2.1.0",
     "nodemon": "^2.0.16"
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "telegraf": "^4.8.3",
   }
 }
