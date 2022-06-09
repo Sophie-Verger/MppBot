@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  app:
+    restart: always
+    image: 'node:latest'
+    working_dir: /home/node/app
+    command:
+      - /bin/sh
+      - '-c'
+      - 'npm install && npm start'
+    ports:
+      - '3000:3000'
+    networks:
+      - mppbot
+    volumes:
+      - .:/home/node/app
+networks:
+  mppbot:
+    driver: bridge
