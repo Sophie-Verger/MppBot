@@ -2,3 +2,5 @@ node_modules
 .git
 package-lock.json
 .vscode
+.env
+.config.json
