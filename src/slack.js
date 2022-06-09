@@ -22,7 +22,7 @@ const app = new App({
 
 
 // schedular. Send daily every day from monday to sunday at 9.00
-const job = schedule.scheduleJob('02 13 * * 1-5', function () {
+const job = schedule.scheduleJob('00 09 * * 1-5', function () {
 	scheduleSlack()
 })
 
